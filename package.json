@@ -1,0 +1,15 @@
+{
+  "name": "send-msg",
+  "version": "1.0.0",
+  "description": "This is a npm package to send message through any service provider.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Pranav Zinzurde",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
