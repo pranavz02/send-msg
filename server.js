@@ -4,28 +4,22 @@ const request = require('request')
 class SendMsg {
 
     /**
-     * Creates a new SendMsg instance
-     * @param {string} authKey Authentication key
-     * @param {string} baseURL
+     * @param {string} authKey 
      * @param {string, optional} messageTemplate
      */
     constructor(authKey, messageTemplate) {
         this.authKey = authKey;
         this.messageTemplate = messageTemplate;       
-        this.otp_expiry = 1440; //1 Day =1440 minutes
+        this.otp_expiry = 1440; //1 Day = 1440 minutes
     }
 
     /**
-     * Returns the base URL for MSG91 api call
-     * @returns {string} Base URL for MSG91 api call
+     * @returns {string} 
      */
     static getBaseURL() {
         return baseURL;
     }
 
-    /**
-     * Set the OTP expiry minutes for MSG91 api call
-     */
     setOtpExpiry(otp_expiry) {
         this.otp_expiry=otp_expiry;
         return;
@@ -33,7 +27,7 @@ class SendMsg {
 
     /**
      * Returns the 4 digit otp
-     * @returns {integer} 4 digit otp
+     * @returns {integer}
      */
     static generateOtp() {
         return Math.floor(1000 + Math.random() * 9000);
@@ -64,22 +58,16 @@ class SendMsg {
      * Retry Otp to given mobile number
      * @param {string} contactNumber receiver's mobile number along with country code
      * @param {boolean} retryVoice, false to retry otp via text call, default true
-     * Return promise if no callback is passed and promises available
      */
     
 
     /**
-     * Verify Otp to given mobile number
      * @param {string} contactNumber receiver's mobile number along with country code
      * @param {string} otp otp to verify
-     * Return promise if no callback is passed and promises available
      */
     
 
-    static doRequest (method, path, params, baseURL) {
-
-        // Return promise if no callback is passed and promises available
-        
+    static doRequest (method, path, params, baseURL) {        
 
         let options = {
             method: method,
@@ -90,7 +78,6 @@ class SendMsg {
             options.qs = params;
         }
 
-        // Pass form data if post
         if (method === 'post') {
             let formKey = 'form';
 
@@ -100,13 +87,9 @@ class SendMsg {
             options[formKey] = params;
         }
 
-        request(options, function(error, response, data) {
-            // request error
-            
+        request(options, function(error, response, data) {            
 
-            // JSON parse error or empty strings
             try {
-                // An empty string is a valid response
                 if (data === '') {
                     data = {};
                 }
@@ -119,18 +102,8 @@ class SendMsg {
                     new Error('JSON parseError with HTTP Status: ' + response.statusCode + ' ' + response.statusMessage),
                     data
                 );
-            }
-
-            // response object errors
-            // This should return an error object not an array of errors
-            
-
-            // status code errors
-            
+            }           
         });
-
     };
-
 }
-
 module.exports = SendMsg;
